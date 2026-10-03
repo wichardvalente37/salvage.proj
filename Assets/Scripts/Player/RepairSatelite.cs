@@ -9,6 +9,7 @@ public class RepairSatelite : MonoBehaviour
 
     private SateliteHealth currentSatelite;
     public GameObject soundPrefab;
+    public GameObject Ebutton;
     void Start()
     {
         
@@ -35,6 +36,8 @@ Quaternion.identity
 
 
     }
+    private GameObject ebutt;
+    bool hasSpawned = false;
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
@@ -44,6 +47,12 @@ Quaternion.identity
         {
 
             currentSatelite = satelite;
+            if (!hasSpawned)
+            {
+  ebutt = Instantiate(Ebutton, currentSatelite.transform.position+Vector3.up, Quaternion.identity);
+                hasSpawned = true;
+            }
+          
         }
     }
 
@@ -54,6 +63,11 @@ Quaternion.identity
 
         if (satelite == currentSatelite)
         {
+            if (hasSpawned)
+            {
+                Destroy(ebutt );
+                hasSpawned = false;
+            }
             currentSatelite = null;
         }
     }

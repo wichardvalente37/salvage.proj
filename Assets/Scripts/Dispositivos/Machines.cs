@@ -37,7 +37,9 @@ CamCam = GameObject.FindWithTag("CamCam");
 
     void Echolocator()
     {
-        if(CamCam.activeSelf)
+        if(CamCam != null)
+        {
+ if(CamCam.activeSelf)
         {
    foreach(GameObject satelite in satelites)
         {
@@ -48,6 +50,8 @@ CamCam = GameObject.FindWithTag("CamCam");
             }
         }
         }
+        }
+       
      
     }
 
