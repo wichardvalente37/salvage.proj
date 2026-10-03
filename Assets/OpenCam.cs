@@ -16,13 +16,13 @@ public class OpenCam : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space)&&PlayerCam.activeSelf){
+        if(Input.GetKeyDown(KeyCode.Tab)&&PlayerCam.activeSelf){
 
             PlayerCam.SetActive(false);
             CamCam.SetActive(true);
             Hide();
         }
-        else if (Input.GetKeyDown(KeyCode.Space) && !PlayerCam.activeSelf)
+        else if (Input.GetKeyDown(KeyCode.Tab) && !PlayerCam.activeSelf)
         {
 
             PlayerCam.SetActive(true);
@@ -70,5 +70,6 @@ public class OpenCam : MonoBehaviour
         {
             Destroy(cammed);
         }
+        thing = 0;
     }
 }
