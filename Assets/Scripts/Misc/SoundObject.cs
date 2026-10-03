@@ -27,7 +27,7 @@ public class SoundObject : MonoBehaviour
 Monster.GetComponent<InvestigateBehaviour>().SusAmount += SusAmount;
             Destroy(gameObject);
         }
-        Destroy(gameObject, SusAmount);
+      
     }
 
  
