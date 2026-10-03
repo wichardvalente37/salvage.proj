@@ -11,7 +11,7 @@ public class Machines : MonoBehaviour
     private GameObject mapCameraObject;
     private Camera mapCamera;
     private float nextSonar;
-
+ GameObject OBJsonar;
     private void Start()
     {
         // OpenCam may already have disabled this object in its Start.
@@ -23,11 +23,11 @@ public class Machines : MonoBehaviour
             break;
         }
     }
-
+   
     public bool FireSonar(Satelite satellite)
     {
-        if (satellite == null || !satellite.hasEchoLocator || Sonar == null || Time.time < nextSonar) return false;
-        Instantiate(Sonar, satellite.transform.position, Quaternion.identity);
+        if (satellite == null || !satellite.hasEchoLocator || Sonar == null || Time.time < nextSonar ) return false;
+        OBJsonar = Instantiate(Sonar, satellite.transform.position, Quaternion.identity);
         nextSonar = Time.time + Mathf.Max(0, cooldown);
         return true;
     }
@@ -41,6 +41,10 @@ public class Machines : MonoBehaviour
 
     private void Update()
     {
+        if(Sonar != null && !mapCameraObject.activeSelf)
+        {
+            Destroy(OBJsonar);
+        }
         if (RunState.Instance != null)
         {
             Echolocators = RunState.Instance.EchoLocators;

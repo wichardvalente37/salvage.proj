@@ -25,7 +25,8 @@ public class RepairSatelite : MonoBehaviour
             {
 
                 if (currentSatelite.health >= currentSatelite.maxHealth) return;
-                currentSatelite.Repair(repairAmount);
+                currentSatelite.GetComponent<GenerateScrap>().Spawn();
+                currentSatelite.Repair(Random.Range(repairAmount-7,repairAmount));
                 var animation = GetComponent<SpriteFrameAnimation>();
                 if (animation != null) animation.PlayRepair();
                 Instantiate(

@@ -1,11 +1,13 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider2D))]
+
 public class ScrapPickup : MonoBehaviour
 {
     [Min(1)] public int amount = 1;
     private bool collected;
 
+   
     private void Reset()
     {
         GetComponent<Collider2D>().isTrigger = true;
@@ -20,4 +22,7 @@ public class ScrapPickup : MonoBehaviour
         RunState.GetOrCreate().AddScrap(amount);
         Destroy(gameObject);
     }
+  
+    
+  
 }

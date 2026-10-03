@@ -38,6 +38,10 @@ public class PlayerMovement : MonoBehaviour
 
         moveInput = moveInput.normalized;
 
+        Vector2 dir = moveInput;
+        Vector2 Playerdir = dir - new Vector2(transform.position.x, transform.position.y);
+
+        transform.up = new Vector2(Playerdir.x, Playerdir.y);
 
         if (dashCooldownTimer > 0)
         {
@@ -83,7 +87,8 @@ public class PlayerMovement : MonoBehaviour
 
             rb.AddForce(dashDirection * dashForce, ForceMode2D.Impulse
             );
-
+           
+        
             isDashing = true;
             dashTimer = dashDuration;
             dashCooldownTimer = dashCooldown;

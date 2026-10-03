@@ -2,9 +2,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SateliteManager : MonoBehaviour
-{
+{ int[] lastpoint = new int[20];
+    private GameObject[] Satelites;
+    private GameObject[] MonPoints;
     private void Start()
     {
+        
         var state = RunState.GetOrCreate();
         if (GetComponent<RunTransition>() == null) gameObject.AddComponent<RunTransition>();
         var player = GameObject.FindWithTag("Player");
@@ -31,5 +34,31 @@ public class SateliteManager : MonoBehaviour
                 state.Save(satellite);
             }
         }
+ int thing = 0;
+        OrganizeSatelites(thing);
+    }
+
+    void OrganizeSatelites(int thing)
+    {
+        Satelites = GameObject.FindGameObjectsWithTag("Satelite");
+        MonPoints = GameObject.FindGameObjectsWithTag("SatelitePoint");
+        foreach (GameObject satelite in Satelites)
+        {
+
+            int rand = Random.Range(0, MonPoints.Length);
+            foreach (int num in lastpoint)
+            {
+                while (num == rand)
+                {
+                    rand = Random.Range(0, MonPoints.Length);
+                }
+            }
+            lastpoint[thing] = rand;
+            satelite.transform.position = MonPoints[rand].transform.position;
+            thing++;
+
+
+        }
+
     }
 }

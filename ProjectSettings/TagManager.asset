@@ -9,6 +9,7 @@ TagManager:
   - SusPosition
   - CamCam
   - Satelite
+  - SatelitePoint
   layers:
   - Default
   - TransparentFX
