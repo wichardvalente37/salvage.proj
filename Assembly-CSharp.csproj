@@ -57,6 +57,7 @@
     <Compile Include="Assets\SateliteHealth.cs" />
     <Compile Include="Assets\SateliteManager.cs" />
     <Compile Include="Assets\Scripts\Monster\InvestigateBehaviour.cs" />
+    <Compile Include="Assets\NoiseEmitter.cs" />
     <Compile Include="Assets\Scripts\LifeTime.cs" />
     <Compile Include="Assets\Scripts\OnClick.cs" />
     <Compile Include="Assets\Scripts\Monster\ChaseBehaviour.cs" />

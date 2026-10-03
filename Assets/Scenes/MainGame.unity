@@ -744,6 +744,7 @@ GameObject:
   - component: {fileID: 766018450}
   - component: {fileID: 766018451}
   - component: {fileID: 766018452}
+  - component: {fileID: 766018453}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -855,6 +856,7 @@ MonoBehaviour:
   dashForce: 10
   dashDuration: 0.15
   dashCooldown: 0.2
+  dashSusAmount: 0.1
 --- !u!114 &766018452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -868,6 +870,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RepairSatelite
   repairAmount: 10
+  repairSusAmount: 2
+--- !u!114 &766018453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 766018447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95afa2d120af8c84a8684f2857762df6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NoiseEmitter
   soundPrefab: {fileID: 5132059151701434186, guid: 0db1cd75531984544a8f59cafeedbfbf, type: 3}
 --- !u!1 &925607531
 GameObject:
@@ -1382,6 +1397,7 @@ GameObject:
   - component: {fileID: 1683508937}
   - component: {fileID: 1683508936}
   - component: {fileID: 1683508935}
+  - component: {fileID: 1683508938}
   m_Layer: 0
   m_Name: Satelite (2)
   m_TagString: Satelite
@@ -1465,6 +1481,19 @@ Transform:
   - {fileID: 2027584464}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1683508938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1683508934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95afa2d120af8c84a8684f2857762df6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NoiseEmitter
+  soundPrefab: {fileID: 5132059151701434186, guid: 0db1cd75531984544a8f59cafeedbfbf, type: 3}
 --- !u!1 &1714885944
 GameObject:
   m_ObjectHideFlags: 0
@@ -1549,6 +1578,7 @@ GameObject:
   - component: {fileID: 1723714239}
   - component: {fileID: 1723714238}
   - component: {fileID: 1723714240}
+  - component: {fileID: 1723714241}
   m_Layer: 0
   m_Name: Satelite
   m_TagString: Satelite
@@ -1632,6 +1662,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.6150141, y: 2.9372954}
   m_EdgeRadius: 0
+--- !u!114 &1723714241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1723714237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95afa2d120af8c84a8684f2857762df6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NoiseEmitter
+  soundPrefab: {fileID: 5132059151701434186, guid: 0db1cd75531984544a8f59cafeedbfbf, type: 3}
 --- !u!1 &1773500232
 GameObject:
   m_ObjectHideFlags: 0
@@ -1643,6 +1686,7 @@ GameObject:
   - component: {fileID: 1773500235}
   - component: {fileID: 1773500234}
   - component: {fileID: 1773500233}
+  - component: {fileID: 1773500236}
   m_Layer: 0
   m_Name: Satelite (3)
   m_TagString: Satelite
@@ -1726,6 +1770,19 @@ Transform:
   - {fileID: 1655596710}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1773500236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773500232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95afa2d120af8c84a8684f2857762df6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NoiseEmitter
+  soundPrefab: {fileID: 5132059151701434186, guid: 0db1cd75531984544a8f59cafeedbfbf, type: 3}
 --- !u!1 &1850378251
 GameObject:
   m_ObjectHideFlags: 0
@@ -1782,6 +1839,7 @@ GameObject:
   - component: {fileID: 1977641991}
   - component: {fileID: 1977641990}
   - component: {fileID: 1977641989}
+  - component: {fileID: 1977641992}
   m_Layer: 0
   m_Name: Satelite (1)
   m_TagString: Satelite
@@ -1865,6 +1923,19 @@ Transform:
   - {fileID: 736329450}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1977641992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977641988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95afa2d120af8c84a8684f2857762df6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NoiseEmitter
+  soundPrefab: {fileID: 5132059151701434186, guid: 0db1cd75531984544a8f59cafeedbfbf, type: 3}
 --- !u!1 &1985446039
 GameObject:
   m_ObjectHideFlags: 0

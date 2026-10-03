@@ -8,10 +8,12 @@ public class RepairSatelite : MonoBehaviour
     public int repairAmount = 10;
 
     private SateliteHealth currentSatelite;
-    public GameObject soundPrefab;
-    void Start()
+    public float repairSusAmount = 2f;
+    private NoiseEmitter noiseEmitter;
+    
+    void Awake()
     {
-        
+        noiseEmitter = GetComponent<NoiseEmitter>();
     }
 
     // Update is called once per frame
@@ -24,11 +26,7 @@ public class RepairSatelite : MonoBehaviour
             {
 
                 currentSatelite.Repair(repairAmount);
-                Instantiate(
-soundPrefab,
-currentSatelite.transform.position,
-Quaternion.identity
-);
+                noiseEmitter.MakeNoise(currentSatelite.transform.position, repairSusAmount);
             }
 
         }
