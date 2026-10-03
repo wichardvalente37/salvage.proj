@@ -14,13 +14,10 @@ public class PlayerMovement : MonoBehaviour
     private bool stopDashRequested;
     private float dashTimer;
     private float dashCooldownTimer;
-    public float dashSusAmount = 0.1f;
-    private NoiseEmitter noiseEmitter;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        noiseEmitter = GetComponent<NoiseEmitter>();
     }
 
     private void Update()
@@ -86,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
 
             rb.AddForce(dashDirection * dashForce, ForceMode2D.Impulse
             );
-            noiseEmitter.MakeNoise(transform.position, dashSusAmount);
+
             isDashing = true;
             dashTimer = dashDuration;
             dashCooldownTimer = dashCooldown;
