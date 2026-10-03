@@ -49,9 +49,13 @@ public class OpenCam : MonoBehaviour
         cammeds[thing] = Instantiate(CammedAstronaut, GameObject.FindWithTag("Player").transform.position, Quaternion.identity);
         
         foreach(GameObject satlite in Satelites)
-        {
-            thing++;
+        { 
+            if(satlite.GetComponent<Satelite>().hasEchoLocator)
+            {
+              thing++;
             cammeds[thing] = Instantiate(CammedSatelite, satlite.transform.position, Quaternion.identity);
+            }
+           
         }
 
     }
@@ -61,14 +65,16 @@ public class OpenCam : MonoBehaviour
 
         foreach (GameObject Obj in Stuff)
         {
-            if (Obj.GetComponent<SpriteRenderer>() != null)
+            if (Obj.GetComponent<SpriteRenderer>() != null && Obj.tag != "Satelite")
             {
                 Obj.GetComponent<SpriteRenderer>().enabled = true;
             }
+           
         }
         foreach(GameObject cammed in cammeds)
         {
             Destroy(cammed);
         }
+        thing = 0;
     }
 }
