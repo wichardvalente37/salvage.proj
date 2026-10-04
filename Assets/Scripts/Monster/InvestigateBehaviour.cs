@@ -5,58 +5,47 @@ public class InvestigateBehaviour : MonoBehaviour
     public float InvestigateSpeed;
     public float SusAmount;
     public bool isInvestigating;
-    private GameObject SusPosition;
-    private float ticks;
-    Vector2 SusPos;
-    void Start()
+    private Vector2 suspiciousPosition;
+    private int searchedPoints;
+    private float nextSearchTime;
+
+    // Noise supplies its own position; no temporary object/tag lookup is needed.
+    public void HearSound(Vector2 position, float amount)
     {
-        
+        if (amount <= 0) return;
+        SusAmount += amount;
+        if (SusAmount < 10) return;
+        suspiciousPosition = position;
+        isInvestigating = true;
+        searchedPoints = 0;
+        nextSearchTime = 0;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if(SusAmount >= 10 && !isInvestigating)
+        var brain = GetComponent<MonsterBrain>();
+        if (brain != null && brain.IsChasing)
         {
-SusPosition = GameObject.FindWithTag("SusPosition");
-   SusPos = SusPosition.transform.position;
-            isInvestigating = true;
-        }
-        if (isInvestigating)
-        {
-            Investigate();
-        }
-        else
-        {
-            ticks = 0;
-        }
-    }
-    private float lastinvestigated;
-    void Investigate()
-    {
-        if(ticks > 4)
-        {
-SusAmount = 0;
             isInvestigating = false;
-            
+            SusAmount = 0;
+            return;
         }
-     
-
-        if (Vector2.Distance(transform.position, SusPos) < 0.1f)
+        if (!isInvestigating) return;
+        if (Vector2.Distance(transform.position, suspiciousPosition) > 0.1f)
         {
-            if(Time.time < Random.Range(3f,8f) + lastinvestigated)
-            {
-                return;
-            }
-            SusPos.y += Random.Range(Random.Range(-3f,5f), Random.Range(-4f, 3f));
-            SusPos.x+= Random.Range(Random.Range(-5f, 2f), Random.Range(-2f, 5f));
-            ticks++;
+            transform.position = Vector2.MoveTowards(transform.position, suspiciousPosition,
+                InvestigateSpeed * Time.deltaTime);
+            nextSearchTime = Time.time + 3f;
+            return;
         }
-        else
+        if (Time.time < nextSearchTime) return;
+        if (++searchedPoints > 4)
         {
-
-          transform.position = Vector2.MoveTowards(transform.position, SusPos, InvestigateSpeed * Time.deltaTime);
-            lastinvestigated = Time.time;
+            SusAmount = 0;
+            isInvestigating = false;
+            return;
         }
+        suspiciousPosition += Random.insideUnitCircle * 3f;
+        nextSearchTime = Time.time + Random.Range(3f, 8f);
     }
 }

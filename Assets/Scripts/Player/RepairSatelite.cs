@@ -18,13 +18,16 @@ public class RepairSatelite : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Keyboard.current.eKey.wasPressedThisFrame)
+        if (Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
         {
             
             if (currentSatelite != null)
             {
 
+                if (currentSatelite.health >= currentSatelite.maxHealth) return;
                 currentSatelite.Repair(repairAmount);
+                var animation = GetComponent<SpriteFrameAnimation>();
+                if (animation != null) animation.PlayRepair();
                 Instantiate(
 soundPrefab,
 currentSatelite.transform.position,

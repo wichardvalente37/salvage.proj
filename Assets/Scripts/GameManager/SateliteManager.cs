@@ -1,22 +1,35 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SateliteManager : MonoBehaviour
 {
-    private GameObject[] Satelite;
-    void Start()
+    private void Start()
     {
-        Satelite = GameObject.FindGameObjectsWithTag("Satelite");
-        foreach(GameObject satelite in Satelite)
-        {
-            int health = satelite.GetComponent<SateliteHealth>().health;
-            health = Random.Range(health - 29,health-10);
-            satelite.GetComponent<SateliteHealth>().health = health;
-        }
-    }
+        var state = RunState.GetOrCreate();
+        if (GetComponent<RunTransition>() == null) gameObject.AddComponent<RunTransition>();
+        var player = GameObject.FindWithTag("Player");
+        if (player != null && player.GetComponent<DeviceWorkshop>() == null)
+            player.AddComponent<DeviceWorkshop>();
+        if (player != null && player.GetComponent<WorkshopHud>() == null)
+            player.AddComponent<WorkshopHud>();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        var names = new HashSet<string>();
+        foreach (var satellite in FindObjectsByType<Satelite>(FindObjectsSortMode.None))
+        {
+            if (string.IsNullOrWhiteSpace(satellite.Name) || !names.Add(satellite.Name))
+            {
+                Debug.LogError($"Satélite {satellite.gameObject.name}: Name tem de ser preenchido e único.", satellite);
+                continue;
+            }
+            if (satellite.GetComponent<SoundBaitDevice>() == null) satellite.gameObject.AddComponent<SoundBaitDevice>();
+            var health = satellite.GetComponent<SateliteHealth>();
+            if (health == null) continue;
+            if (!state.Restore(satellite))
+            {
+                // Initial damage happens once, never overwrites the previous run.
+                health.health = Mathf.Clamp(Random.Range(health.health - 29, health.health - 10), 0, health.maxHealth);
+                state.Save(satellite);
+            }
+        }
     }
 }

@@ -1,34 +1,30 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SoundObject : MonoBehaviour
 {
     public float SusAmount;
-    public GameObject suspos;
-    private Transform Monster;
-    void Start()
+    public GameObject suspos; // Kept to preserve the existing prefab's serialized field.
+    [Min(0.1f)] public float propagationSpeed = 8f;
+    private InvestigateBehaviour monster;
+    private Vector2 origin;
+
+    private void Start()
     {
- Monster = GameObject.FindWithTag("Monster").transform;
-        float Value = Monster.GetComponent<InvestigateBehaviour>().SusAmount;
-        Value += SusAmount;
-        if(Value>= 10)
-        {
-            Instantiate(suspos, transform.position, Quaternion.identity);
-        }
-       
+        origin = transform.position;
+        var target = GameObject.FindWithTag("Monster");
+        if (target != null) monster = target.GetComponent<InvestigateBehaviour>();
+        if (monster == null) Destroy(gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        transform.position = Vector2.MoveTowards(transform.position, Monster.position, SusAmount+2 * Time.deltaTime);
-        if (Vector2.Distance(transform.position, Monster.position) < 0.3f)
+        if (monster == null) { Destroy(gameObject); return; }
+        transform.position = Vector2.MoveTowards(transform.position, monster.transform.position,
+            propagationSpeed * Time.deltaTime);
+        if (Vector2.Distance(transform.position, monster.transform.position) < 0.3f)
         {
-Monster.GetComponent<InvestigateBehaviour>().SusAmount += SusAmount;
+            monster.HearSound(origin, SusAmount);
             Destroy(gameObject);
         }
-      
     }
-
- 
 }

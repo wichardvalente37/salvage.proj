@@ -10,6 +10,7 @@ public class MonsterBrain : MonoBehaviour
     public float SpaceRadius;
     public float LosingDistance;
     private bool canChase;
+    public bool IsChasing => canChase;
     public LayerMask layer;
     private Transform player;
     public float DeaggroTime;
@@ -27,6 +28,14 @@ public class MonsterBrain : MonoBehaviour
     void Update()
     {
         HasSight();
+        if (hasTouched)
+        {
+            canChase = true;
+            investigate.isInvestigating = false;
+            investigate.SusAmount = 0;
+        }
+        // Direct pursuit takes priority over noise received during a chase.
+        if (canChase) investigate.isInvestigating = false;
 
         if (canChase)
         {
@@ -39,14 +48,6 @@ public class MonsterBrain : MonoBehaviour
             patrol.canSeek();
            
         }
-
-        if (hasTouched)
-        {
-            canChase = true;
-            investigate.isInvestigating = false;
-            investigate.SusAmount = 0;
-        }
-
 
     }
 

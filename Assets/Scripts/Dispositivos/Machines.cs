@@ -1,59 +1,72 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Machines : MonoBehaviour
 {
-    private GameObject[] satelites;
     public GameObject Sonar;
-    private GameObject CamCam;
     public float cooldown;
-    private float lastClicked;
     public int Echolocators;
     public int EchoSensors;
     public int Soundbait;
-    void Start()
+    private GameObject mapCameraObject;
+    private Camera mapCamera;
+    private float nextSonar;
+
+    private void Start()
     {
-CamCam = GameObject.FindWithTag("CamCam");
-        satelites = GameObject.FindGameObjectsWithTag("Satelite");
-        lastClicked = -cooldown;
+        // OpenCam may already have disabled this object in its Start.
+        foreach (var candidate in FindObjectsByType<Transform>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        {
+            if (!candidate.CompareTag("CamCam")) continue;
+            mapCameraObject = candidate.gameObject;
+            mapCamera = candidate.GetComponentInChildren<Camera>(true);
+            break;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public bool FireSonar(Satelite satellite)
     {
-        canEcholocate();
-    }
-    
-    void canEcholocate()
-    {
-        if(Time.time < lastClicked + cooldown)
-        {
-            return;
-        }
-
-  Echolocator();
-
+        if (satellite == null || !satellite.hasEchoLocator || Sonar == null || Time.time < nextSonar) return false;
+        Instantiate(Sonar, satellite.transform.position, Quaternion.identity);
+        nextSonar = Time.time + Mathf.Max(0, cooldown);
+        return true;
     }
 
-
-    void Echolocator()
+    public bool ActivateBait(Satelite satellite)
     {
-        if(CamCam != null)
-        {
- if(CamCam.activeSelf)
-        {
-   foreach(GameObject satelite in satelites)
-        {
-            if (satelite.GetComponent<Satelite>().hasclicked&& satelite.GetComponent<Satelite>().hasEchoLocator)
-            {
-                Instantiate(Sonar,satelite.transform.position, Quaternion.identity);
-                    lastClicked = Time.time;
-            }
-        }
-        }
-        }
-       
-     
+        if (satellite == null) return false;
+        var bait = satellite.GetComponent<SoundBaitDevice>();
+        return bait != null && bait.Activate();
     }
 
-  
+    private void Update()
+    {
+        if (RunState.Instance != null)
+        {
+            Echolocators = RunState.Instance.EchoLocators;
+            EchoSensors = RunState.Instance.EchoSensors;
+            Soundbait = RunState.Instance.SoundBaits;
+        }
+        var mouse = Mouse.current;
+        if (mouse == null || mapCamera == null || mapCameraObject == null || !mapCameraObject.activeInHierarchy) return;
+        bool sonar = mouse.leftButton.wasPressedThisFrame;
+        bool bait = mouse.rightButton.wasPressedThisFrame;
+        if (!sonar && !bait) return;
+        Vector2 screen = mouse.position.ReadValue();
+        // The inventory's buttons must not also activate a satellite underneath them.
+        if (WorkshopHud.IsPointerOver(screen)) return;
+        Vector2 world = mapCamera.ScreenToWorldPoint(screen);
+        Satelite nearest = null;
+        float distance = float.PositiveInfinity;
+        foreach (var hit in Physics2D.OverlapPointAll(world))
+        {
+            var satellite = hit.GetComponentInParent<Satelite>();
+            if (satellite == null || !satellite.hasEchoLocator) continue;
+            float candidate = Vector2.Distance(world, satellite.transform.position);
+            if (candidate < distance) { nearest = satellite; distance = candidate; }
+        }
+        if (nearest == null) return;
+        if (sonar) FireSonar(nearest);
+        if (bait) ActivateBait(nearest);
+    }
 }
