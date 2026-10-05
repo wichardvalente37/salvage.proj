@@ -12,6 +12,7 @@ public class ShipSceneController : MonoBehaviour
             if (player.GetComponent<DeviceWorkshop>() == null) player.AddComponent<DeviceWorkshop>();
             if (player.GetComponent<WorkshopHud>() == null) player.AddComponent<WorkshopHud>();
         }
+        if (GetComponent<ShipShop>() == null) gameObject.AddComponent<ShipShop>();
         shipCamera = Camera.main;
     }
 

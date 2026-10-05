@@ -94,6 +94,7 @@ public class PlayerMovement : MonoBehaviour
             );
            
         
+            if (GameAudio.Instance != null) GameAudio.Instance.PlayDash();
             isDashing = true;
             dashTimer = dashDuration;
             dashCooldownTimer = dashCooldown;
