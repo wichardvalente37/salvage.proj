@@ -1192,8 +1192,8 @@ Transform:
   m_GameObject: {fileID: 2100000560}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4, y: 3, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalPosition: {x: 5.3, y: 2.3, z: 0}
+  m_LocalScale: {x: 1.6, y: 1.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1330,8 +1330,8 @@ Transform:
   m_GameObject: {fileID: 2100000580}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4, y: -2, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalPosition: {x: 3.1, y: 4.5, z: 0}
+  m_LocalScale: {x: 1.6, y: 1.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1468,8 +1468,8 @@ Transform:
   m_GameObject: {fileID: 2100000600}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4, y: -2, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalPosition: {x: 5.3, y: 4.5, z: 0}
+  m_LocalScale: {x: 1.6, y: 1.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1636,6 +1636,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2100000651}
   - component: {fileID: 2100000654}
+  - component: {fileID: 2200090000}
   m_Layer: 0
   m_Name: Ship systems
   m_TagString: Untagged
@@ -1686,4 +1687,35 @@ SceneRoots:
   - {fileID: 766018448}
   - {fileID: 519420032}
   - {fileID: 619394802}
-  - {fileID: 89453308}
+  - {fileID: 2200000001}
+  - {fileID: 2200000011}
+  - {fileID: 2200000021}
+  - {fileID: 2200000031}
+  - {fileID: 2200000041}
+  - {fileID: 2200000051}
+  - {fileID: 2200000061}
+  - {fileID: 2200000071}
+  - {fileID: 2200000081}
+  - {fileID: 2200000091}
+  - {fileID: 2200000101}
+  - {fileID: 2200000111}
+  - {fileID: 2200000121}
+  - {fileID: 2200000131}
+  - {fileID: 2200000141}
+  - {fileID: 2200000151}
+  - {fileID: 2200000161}
+  - {fileID: 2200000171}
+  - {fileID: 2200000181}
+  - {fileID: 2200000191}
+  - {fileID: 2200000201}
+  - {fileID: 2200000211}
+  - {fileID: 2200000221}
+  - {fileID: 2200000231}
+  - {fileID: 2200000241}
+  - {fileID: 2200000251}
+  - {fileID: 2200000261}
+  - {fileID: 2200000271}
+  - {fileID: 2200000281}
+  - {fileID: 2200000291}
+  - {fileID: 2200000301}
+  - {fileID: 2200000311}

@@ -16,8 +16,23 @@ public class DeviceWorkshop : MonoBehaviour
     public bool InstallEchoSensor() => InstallNearest(DeviceType.EchoSensor);
     public bool InstallSoundBait() => InstallNearest(DeviceType.SoundBait);
 
+    public bool CanCraftHere
+    {
+        get
+        {
+            foreach (var bench in FindObjectsByType<CraftingBench>(FindObjectsSortMode.None))
+                if (bench.CanUse(transform)) return true;
+            return false;
+        }
+    }
+
     private bool Craft(DeviceType device, int cost)
     {
+        if (!CanCraftHere)
+        {
+            Debug.Log("Só podes construir junto da bancada, na oficina da nave.");
+            return false;
+        }
         bool result = RunState.GetOrCreate().Craft(device, cost);
         Debug.Log(result ? $"Construído: {device}" : "Sucata insuficiente ou custo inválido.");
         return result;

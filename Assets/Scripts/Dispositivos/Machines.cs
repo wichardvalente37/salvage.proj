@@ -30,6 +30,7 @@ public class Machines : MonoBehaviour
     {
         if (satellite == null || !satellite.hasEchoLocator || Sonar == null || Time.time < nextSonar ) return false;
         OBJsonar = Instantiate(Sonar, satellite.transform.position, Quaternion.identity);
+        if (GameAudio.Instance != null) GameAudio.Instance.PlaySonar();
         nextSonar = Time.time + Mathf.Max(0, cooldown);
         return true;
     }
