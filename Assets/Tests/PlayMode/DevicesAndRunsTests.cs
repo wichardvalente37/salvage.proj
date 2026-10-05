@@ -45,7 +45,6 @@ public class DevicesAndRunsTests
     {
         // Unload the gameplay scene before destroying state so its OnDisable hooks cannot overwrite it.
         var game = SceneManager.GetSceneByName("MainGame");
-        if (!game.IsValid() || !game.isLoaded) game = SceneManager.GetSceneByName("ShipInterior");
         if (game.IsValid() && game.isLoaded)
         {
             var empty = SceneManager.CreateScene("RunTestsCleanup");
@@ -148,49 +147,4 @@ public class DevicesAndRunsTests
         Assert.IsTrue(Field<bool>(restored, "hasSensor"));
         Assert.IsTrue(Field<bool>(restored, "hasSoundBait"));
     }
-    [UnityTest]
-    public IEnumerator ShipHasCircularHullClearRoutesAndPreservesStateOnReturn()
-    {
-        yield return SceneManager.LoadSceneAsync("MainGame");
-        yield return null;
-        var state = State();
-        Call(state, "AddScrap", 9);
-        var satellite = First("Satelite");
-        string name = Field<string>(satellite, "Name");
-        Field(satellite.GetComponent(RuntimeType("SateliteHealth")), "health", 22);
-        Field(satellite, "hasEchoLocator", true);
-        var boarding = First("ScenePortal");
-        Assert.IsFalse((bool)Call(boarding, "Travel"), "Cannot board from outside the hatch range.");
-        GameObject.FindWithTag("Player").transform.position = boarding.transform.position;
-        Assert.IsTrue((bool)Call(boarding, "Travel"));
-        float deadline = Time.realtimeSinceStartup + 15f;
-        while (SceneManager.GetActiveScene().name != "ShipInterior" && Time.realtimeSinceStartup < deadline) yield return null;
-        Assert.AreEqual("ShipInterior", SceneManager.GetActiveScene().name);
-        yield return null;
-        Assert.AreSame(state, State());
-        Assert.AreEqual(9, Property<int>(state, "Scrap"));
-        Assert.AreEqual(4f, Field<float>(First("PlayerMovement"), "walkSpeed"));
-        Physics2D.SyncTransforms();
-        var size = new Vector2(0.8f, 0.8f);
-        Assert.IsNotNull(Physics2D.BoxCast(new Vector2(0, -4.5f), size, 0, Vector2.left, 8, 1).collider, "Circular hull must block leaving the ship.");
-        Assert.IsNull(Physics2D.BoxCast(new Vector2(0, -4.5f), size, 0, Vector2.up, 4.5f, 1).collider, "Central corridor must remain open.");
-        Assert.IsNull(Physics2D.BoxCast(Vector2.zero, size, 0, Vector2.left, 8, 1).collider, "Left path between boxes must remain open.");
-        Assert.IsNull(Physics2D.BoxCast(Vector2.zero, size, 0, Vector2.right, 8, 1).collider, "Right path between boxes must remain open.");
-        var exit = First("ScenePortal");
-        GameObject.FindWithTag("Player").transform.position = exit.transform.position;
-        Assert.IsTrue((bool)Call(exit, "Travel"));
-        deadline = Time.realtimeSinceStartup + 15f;
-        while (SceneManager.GetActiveScene().name != "MainGame" && Time.realtimeSinceStartup < deadline) yield return null;
-        Assert.AreEqual("MainGame", SceneManager.GetActiveScene().name);
-        yield return null;
-        Assert.AreSame(state, State());
-        Assert.AreEqual(9, Property<int>(state, "Scrap"));
-        Component restored = null;
-        foreach (Component candidate in Object.FindObjectsByType(RuntimeType("Satelite"), FindObjectsSortMode.None))
-            if (Field<string>(candidate, "Name") == name) restored = candidate;
-        Assert.IsNotNull(restored);
-        Assert.AreEqual(22, Field<int>(restored.GetComponent(RuntimeType("SateliteHealth")), "health"));
-        Assert.IsTrue(Field<bool>(restored, "hasEchoLocator"));
-    }
-
 }

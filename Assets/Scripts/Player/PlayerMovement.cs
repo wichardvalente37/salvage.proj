@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [Min(0)] public float walkSpeed = 0f; // Zero preserves the original space movement.
     public float dashForce = 10f;
     public float dashDuration = 0.15f;
     public float dashCooldown = 0.2f;
@@ -24,7 +23,6 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         moveInput = Vector2.zero;
-        if (Keyboard.current == null) return;
 
         if (Keyboard.current.wKey.isPressed)
             moveInput.y += 1;
@@ -82,9 +80,6 @@ public class PlayerMovement : MonoBehaviour
             stopDashRequested = false;
         }
 
-
-        if (walkSpeed > 0 && !isDashing && !dashRequested)
-            rb.linearVelocity = moveInput * walkSpeed;
 
         if (dashRequested)
         {
