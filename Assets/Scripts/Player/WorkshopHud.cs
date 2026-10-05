@@ -92,17 +92,23 @@ public class WorkshopHud : MonoBehaviour
 
     private void DrawCrafting(RunState state)
     {
+        if (!workshop.CanCraftHere)
+        {
+            GUI.Label(new Rect(24, 105, 246, 70), "Para fabricar, entra na nave e aproxima-te da bancada da oficina.", muted);
+            GUI.Label(new Rect(24, 184, 246, 45), $"Inventário: {state.EchoLocators} localizadores · {state.EchoSensors} sensores · {state.SoundBaits} iscas", muted);
+            return;
+        }
         CraftRow(102, "EchoLocator", state.EchoLocators, workshop.echoLocatorCost, state.Scrap, 1);
         CraftRow(142, "EchoSensor", state.EchoSensors, workshop.echoSensorCost, state.Scrap, 2);
         CraftRow(182, "Isca sonora", state.SoundBaits, workshop.soundBaitCost, state.Scrap, 3);
-        GUI.Label(new Rect(24, 225, 246, 22), "1 / 2 / 3 também constroem com o painel fechado.", muted);
+        GUI.Label(new Rect(24, 225, 246, 22), "1 / 2 / 3: construir junto da bancada.", muted);
     }
 
     private void CraftRow(float y, string name, int count, int cost, int scrap, int key)
     {
         GUI.Label(new Rect(24, y, 150, 20), $"{name}   ×{count}", text);
         GUI.Label(new Rect(24, y + 18, 150, 18), $"{cost} sucatas · tecla {key}", muted);
-        GUI.enabled = cost > 0 && scrap >= cost;
+        GUI.enabled = workshop.CanCraftHere && cost > 0 && scrap >= cost;
         if (GUI.Button(new Rect(181, y + 2, 89, 30), "Construir", button))
         {
             if (key == 1) workshop.CraftEchoLocator();

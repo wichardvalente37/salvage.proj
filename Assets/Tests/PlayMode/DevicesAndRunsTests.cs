@@ -193,4 +193,27 @@ public class DevicesAndRunsTests
         Assert.IsTrue(Field<bool>(restored, "hasEchoLocator"));
     }
 
+    [UnityTest]
+    public IEnumerator CraftingRequiresShipWorkbenchAndCannotReachThroughWalls()
+    {
+        yield return SceneManager.LoadSceneAsync("MainGame");
+        yield return null;
+        var state = State();
+        Call(state, "AddScrap", 20);
+        Assert.IsFalse((bool)Call(First("DeviceWorkshop"), "CraftEchoLocator"));
+        Assert.AreEqual(20, Property<int>(state, "Scrap"));
+        yield return SceneManager.LoadSceneAsync("ShipInterior");
+        yield return null;
+        var workshop = First("DeviceWorkshop");
+        Assert.IsFalse((bool)Call(workshop, "CraftEchoLocator"));
+        workshop.transform.position = new Vector3(-4, 6.1f, 0);
+        Physics2D.SyncTransforms();
+        Assert.IsFalse((bool)Call(workshop, "CraftEchoLocator"), "Cannot craft through the workshop wall.");
+        workshop.transform.position = new Vector3(-4, 2.6f, 0);
+        Physics2D.SyncTransforms();
+        Assert.IsTrue((bool)Call(workshop, "CraftEchoLocator"));
+        Assert.AreEqual(15, Property<int>(state, "Scrap"));
+        Assert.AreEqual(1, Property<int>(state, "EchoLocators"));
+    }
+
 }
