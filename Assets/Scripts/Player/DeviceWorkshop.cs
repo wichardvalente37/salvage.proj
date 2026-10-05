@@ -3,12 +3,12 @@ using UnityEngine.InputSystem;
 
 // Attached automatically by SateliteManager. Public methods also support UI buttons.
 public class DeviceWorkshop : MonoBehaviour
-{
+{/*
     [Min(1)] public int echoLocatorCost = 5;
     [Min(1)] public int echoSensorCost = 8;
     [Min(1)] public int soundBaitCost = 3;
     [Min(0.1f)] public float installationRange = 3f;
-
+    
     public bool CraftEchoLocator() => Craft(DeviceType.EchoLocator, echoLocatorCost);
     public bool CraftEchoSensor() => Craft(DeviceType.EchoSensor, echoSensorCost);
     public bool CraftSoundBait() => Craft(DeviceType.SoundBait, soundBaitCost);
@@ -87,4 +87,6 @@ public class DeviceWorkshop : MonoBehaviour
         if (keyboard.hKey.wasPressedThisFrame) InstallSoundBait();
         if (keyboard.bKey.wasPressedThisFrame) ActivateNearestBait();
     }
+
+*/
 }

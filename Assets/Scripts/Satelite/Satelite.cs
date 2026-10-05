@@ -38,10 +38,7 @@ public class Satelite : MonoBehaviour
         }
     }
 
-    private void OnDisable()
-    {
-        if (RunState.Instance != null) RunState.Instance.Save(this);
-    }
+  
 
     private void OnMouseDown()
     {

@@ -10,6 +10,7 @@ TagManager:
   - CamCam
   - Satelite
   - SatelitePoint
+  - InfoManager
   layers:
   - Default
   - TransparentFX

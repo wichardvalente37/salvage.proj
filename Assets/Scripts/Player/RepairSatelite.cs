@@ -7,9 +7,10 @@ public class RepairSatelite : MonoBehaviour
 
     public int repairAmount = 10;
 
-    private SateliteHealth currentSatelite;
+    public SateliteHealth currentSatelite;
     public GameObject soundPrefab;
     public GameObject Ebutton;
+    public GameObject canvas;
     void Start()
     {
         
@@ -23,7 +24,7 @@ public class RepairSatelite : MonoBehaviour
             
             if (currentSatelite != null)
             {
-
+                canvas.SetActive(true);
                 if (currentSatelite.health >= currentSatelite.maxHealth) return;
                 currentSatelite.GetComponent<GenerateScrap>().Spawn();
                 currentSatelite.Repair(Random.Range(repairAmount-7,repairAmount));
@@ -67,6 +68,7 @@ Quaternion.identity
 
         if (satelite == currentSatelite)
         {
+            canvas.SetActive(false);
             if (hasSpawned)
             {
                 Destroy(ebutt );

@@ -16,10 +16,10 @@ public class ScrapPickup : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (collected || amount <= 0) return;
-        var player = other.GetComponentInParent<DeviceWorkshop>();
-        if (player == null) return;
+
+        GameObject.FindWithTag("InfoManager").GetComponent<InfoManager>().scrap += amount;
         collected = true;
-        RunState.GetOrCreate().AddScrap(amount);
+        
         Destroy(gameObject);
     }
   

@@ -11,8 +11,7 @@ public class SateliteHealth : MonoBehaviour
         {
             health = maxHealth;
         }
-        var satellite = GetComponent<Satelite>();
-        if (satellite != null && RunState.Instance != null) RunState.Instance.Save(satellite);
+     
     }
     void Start()
     {

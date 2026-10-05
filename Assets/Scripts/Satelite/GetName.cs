@@ -7,8 +7,9 @@ public class GetName : MonoBehaviour
     private GameObject[] Satelites;
     void Start()
     {
+        
         Satelites = GameObject.FindGameObjectsWithTag("Satelite");
-       
+     
         foreach(GameObject satelite in Satelites)
         {
             if(Vector2.Distance(satelite.transform.position, transform.position) < 0.1f)

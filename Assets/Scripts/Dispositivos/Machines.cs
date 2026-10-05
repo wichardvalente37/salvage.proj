@@ -11,9 +11,11 @@ public class Machines : MonoBehaviour
     private GameObject mapCameraObject;
     private Camera mapCamera;
     private float nextSonar;
+    private GameObject player;
  GameObject OBJsonar;
     private void Start()
     {
+        player = GameObject.FindWithTag("Player");
         // OpenCam may already have disabled this object in its Start.
         foreach (var candidate in FindObjectsByType<Transform>(FindObjectsInactive.Include, FindObjectsSortMode.None))
         {
@@ -45,12 +47,7 @@ public class Machines : MonoBehaviour
         {
             Destroy(OBJsonar);
         }
-        if (RunState.Instance != null)
-        {
-            Echolocators = RunState.Instance.EchoLocators;
-            EchoSensors = RunState.Instance.EchoSensors;
-            Soundbait = RunState.Instance.SoundBaits;
-        }
+       
         var mouse = Mouse.current;
         if (mouse == null || mapCamera == null || mapCameraObject == null || !mapCameraObject.activeInHierarchy) return;
         bool sonar = mouse.leftButton.wasPressedThisFrame;
@@ -58,7 +55,7 @@ public class Machines : MonoBehaviour
         if (!sonar && !bait) return;
         Vector2 screen = mouse.position.ReadValue();
         // The inventory's buttons must not also activate a satellite underneath them.
-        if (WorkshopHud.IsPointerOver(screen)) return;
+       
         Vector2 world = mapCamera.ScreenToWorldPoint(screen);
         Satelite nearest = null;
         float distance = float.PositiveInfinity;
@@ -72,5 +69,27 @@ public class Machines : MonoBehaviour
         if (nearest == null) return;
         if (sonar) FireSonar(nearest);
         if (bait) ActivateBait(nearest);
+    }
+
+
+
+    public void CraftLocator()
+    {
+        if(!player.GetComponent<RepairSatelite>().currentSatelite.GetComponent<Satelite>().hasEchoLocator && Echolocators > 0 || EchoSensors > 0)
+        {
+            player.GetComponent<RepairSatelite>().currentSatelite.GetComponent<Satelite>().hasEchoLocator = true;
+        }
+    }
+
+    public void CraftSensorLocator()
+    {
+        if (player.GetComponent<RepairSatelite>().currentSatelite.GetComponent<Satelite>().hasEchoLocator == false&& Echolocators > 0 || EchoSensors > 0)
+        {
+            player.GetComponent<RepairSatelite>().currentSatelite.GetComponent<Satelite>().hasEchoLocator = true;
+        }
+        if (!player.GetComponent<RepairSatelite>().currentSatelite.GetComponent<Satelite>().hasSensor &&EchoSensors > 0)
+        {
+            player.GetComponent<RepairSatelite>().currentSatelite.GetComponent<Satelite>().hasSensor = true;
+        }
     }
 }
