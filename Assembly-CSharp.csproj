@@ -52,6 +52,7 @@
     <Compile Include="Assets\Scripts\GameManager\RunTransition.cs" />
     <Compile Include="Assets\Scripts\Monster\PatrolBehaviour.cs" />
     <Compile Include="Assets\Scripts\Monster\MonsterBrain.cs" />
+    <Compile Include="Assets\Scripts\GameManager\ScenePortal.cs" />
     <Compile Include="Assets\Scripts\Player\DeviceWorkshop.cs" />
     <Compile Include="Assets\Scripts\Misc\Sonar.cs" />
     <Compile Include="Assets\Scripts\Misc\SoundObject.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Assets\Scripts\Satelite\SateliteHealth.cs" />
     <Compile Include="Assets\Scripts\Dispositivos\SoundBaitDevice.cs" />
     <Compile Include="Assets\Scripts\Satelite\GenerateScrap.cs" />
+    <Compile Include="Assets\Scripts\GameManager\ShipSceneController.cs" />
     <Compile Include="Assets\Scripts\--TEST--\OnClick.cs" />
     <Compile Include="Assets\Scripts\Satelite\GetName.cs" />
     <Compile Include="Assets\Scripts\Player\WorkshopHud.cs" />
