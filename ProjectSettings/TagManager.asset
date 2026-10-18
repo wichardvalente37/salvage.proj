@@ -9,6 +9,17 @@ TagManager:
   - SusPosition
   - CamCam
   - Satelite
+<<<<<<< Updated upstream
+=======
+  - SatelitePoint
+  - InfoManager
+  - ShopManager
+  - EerieMusic
+  - GameManager
+  - MusicManager
+  - Sonar
+  - CamSatelite
+>>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX
