@@ -3,31 +3,15 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags:
-  - Point
-  - Monster
-  - SusPosition
-  - CamCam
-  - Satelite
-<<<<<<< Updated upstream
-=======
-  - SatelitePoint
-  - InfoManager
-  - ShopManager
-  - EerieMusic
-  - GameManager
-  - MusicManager
-  - Sonar
-  - CamSatelite
->>>>>>> Stashed changes
+  tags: []
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Player
+  - 
   - Water
   - UI
-  - Monster
+  - 
   - 
   - 
   - 
