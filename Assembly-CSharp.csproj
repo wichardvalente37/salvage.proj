@@ -116,6 +116,7 @@
     <Compile Include="Assets\Scripts\MainGame\Misc\shipEntrance.cs" />
     <Compile Include="Assets\Scripts\General\Player\DeviceWorkshop.cs" />
     <Compile Include="Assets\Scripts\OtherMenus\MenuManagement.cs" />
+>>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
